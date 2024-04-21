@@ -1,9 +1,16 @@
-function TodoAddSection({ setTodoInput, setTodo, todoInput, todo }) {
+import { useContext } from "react";
+import TodoContext from "../context/todos-context/TodoContext";
+import { addTodo } from "../context/todos-context/actions";
+
+function TodoAddSection() {
+  const { todoInput, setTodoInput } = useContext(TodoContext);
+  const { dispatch, todos } = useContext(TodoContext);
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        setTodo([...todo, todoInput]);
+        dispatch(addTodo({ id: todos.length - 1, text: todoInput }));
         setTodoInput("");
       }}
     >

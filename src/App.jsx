@@ -1,23 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import TodoAddSection from "./components/TodoAddSection";
 import TodoList from "./components/TodoList";
+import TodoContext, {
+  TodoDataProvider,
+} from "./context/todos-context/TodoContext";
 
 function App() {
-  const [todoInput, setTodoInput] = useState("");
-  const [todo, setTodo] = useState([]);
+  const { todos, todoInput } = useContext(TodoContext);
   console.log("todoInput :", todoInput);
-  console.log("todo :", todo);
+  console.log("todo :", todos);
 
   return (
-    <>
-      <TodoList todo={todo} />
-      <TodoAddSection
-        setTodoInput={setTodoInput}
-        setTodo={setTodo}
-        todoInput={todoInput}
-        todo={todo}
-      />
-    </>
+    <TodoDataProvider>
+      <TodoList />
+      <TodoAddSection />
+    </TodoDataProvider>
   );
 }
 
